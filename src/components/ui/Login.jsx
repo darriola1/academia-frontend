@@ -7,6 +7,8 @@ import { BookOpen } from 'lucide-react';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from './button';
+import { signIn } from 'next-auth/react';
+
 
 export default function Login() {
 
