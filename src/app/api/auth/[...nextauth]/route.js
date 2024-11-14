@@ -24,6 +24,9 @@ const provider = NextAuth({
             },
         }),
     ],
+    pages: {
+        signIn: '/', // Personaliza la página de inicio de sesión
+    },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {

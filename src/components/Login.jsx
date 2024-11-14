@@ -2,11 +2,10 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-// import { LoginButton } from '@/components/ui/LoginButton';
 import { BookOpen } from 'lucide-react';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from './button';
+import { Button } from '@/components/ui/button';
 import { signIn } from 'next-auth/react';
 
 
@@ -25,7 +24,7 @@ export default function Login() {
 			setError('Por favor ingresa tanto el email como la contraseña');
 			return;
 		}
-		// Llama a `signIn` de NextAuth para autenticación
+		// Llama a signIn de NextAuth para autenticación
 		const result = await signIn('credentials', {
 			redirect: false,
 			email,
