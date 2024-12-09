@@ -1,5 +1,6 @@
 "use client"
 import React from 'react'
+import { LogOut } from 'lucide-react';
 import { Button } from './button'
 import { signOut } from 'next-auth/react';
 
@@ -10,7 +11,7 @@ function ButtonLogOut() {
                 callbackUrl: "/",
             })
         }}>
-            Logout
+            <LogOut></LogOut>Logout
         </Button>
     )
 }
