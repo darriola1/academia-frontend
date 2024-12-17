@@ -1,15 +1,24 @@
 "use client"
 
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { BookOpen } from 'lucide-react';
-import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { BookOpen, Moon, Sun } from 'lucide-react'
 import { signIn } from 'next-auth/react';
 
+export default function LoginPage() {
+	const [isDarkMode, setIsDarkMode] = useState(false)
 
-export default function Login() {
+	useEffect(() => {
+		if (isDarkMode) {
+			document.documentElement.classList.add('dark')
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+	}, [isDarkMode])
 
 	const [error, setError] = useState();
 	const router = useRouter();
@@ -38,53 +47,68 @@ export default function Login() {
 		}
 	};
 
-
 	return (
-		<div className='max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-xl '>
-			<div className='flex justify-center items-center'>
-				<BookOpen className='h-12 w-12 text-blue-400' />
-			</div>
-			<div className='text-center'>
-				<h2 className='mt-6 text-3xl font-extrabold text-white'>Academia de Inglés</h2>
-				<p className='mt-2 text-sm text-gray-400'>Inicia sesión para acceder a tus clases</p>
-			</div>
-			<form className='mt-8 space-y-6' onSubmit={handleSubmit}>
-				<div className='rounded-md -space-y-px'>
-					<div className='my-2'>
-						<Label htmlFor='email-address' className='sr-only'>
-							Correo electrónico
-						</Label>
-						<Input id='email-address' name='email' type='email' autoComplete='email' required className='rounded-t-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-400' placeholder='Correo electrónico' />
+		<div className="min-h-screen max-w-md w-full p-4 bg-white dark:bg-zinc-900 flex justify-center items-center">
+			<Card className="w-full max-w-sm p-6 bg-white dark:bg-zinc-800 shadow-lg rounded-lg">
+				<div className="flex items-center justify-between mb-6">
+					<div className="flex items-center gap-2">
+						<BookOpen className="h-5 w-5" />
+						<h1 className="text-xl font-semibold">Academia de Inglés</h1>
 					</div>
-					<div className='my-2'>
-						<Label htmlFor='password' className='sr-only'>
-							Contraseña
-						</Label>
-						<Input id='password' name='password' type='password' autoComplete='current-password' required className='rounded-b-md bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-400' placeholder='Contraseña' />
-					</div>
+					<Button
+						variant="ghost"
+						size="icon"
+						onClick={() => setIsDarkMode(!isDarkMode)}
+						className="h-8 w-8"
+					>
+						{isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+					</Button>
 				</div>
 
-				<div className='flex items-center justify-between'>
-					<div className='text-sm'>
-						<a href='#' className='font-medium text-blue-400 hover:text-blue-300'>
-							¿Olvidaste tu contraseña?
-						</a>
-					</div>
-				</div>
-				<Button type='submit'
-					className='w-full bg-blue-600 hover:bg-blue-700 text-white'>
-					Iniciar sesión
-				</Button>
-				{error && <p>{error}</p>}
-			</form>
-			<div className='text-center'>
-				<p className='mt-2 text-sm text-gray-400'>
-					¿No tienes una cuenta?{' '}
-					<a href='#' className='font-medium text-blue-400 hover:text-blue-300'>
-						Regístrate aquí
-					</a>
+				<p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+					Inicia sesión para acceder a tus clases
 				</p>
-			</div>
+
+				<form className="space-y-4" onSubmit={handleSubmit}>
+					<div className="space-y-2">
+						<Label htmlFor="email">Correo electrónico</Label>
+						<Input
+							id="email"
+							name="email"
+							type="email"
+							defaultValue="darriola.dev@gmail.com"
+							className="w-full dark:border-white"
+						/>
+					</div>
+
+					<div className="space-y-2">
+						<Label htmlFor="password">Contraseña</Label>
+						<Input
+							id="password"
+							name='password'
+							type="password"
+							className="w-full  dark:border-white"
+						/>
+					</div>
+
+					<div className="flex items-center gap-2">
+						<input
+							type="checkbox"
+							id="remember"
+							className="h-4 w-4 rounded border-zinc-300"
+						/>
+						<Label htmlFor="remember" className="text-sm font-normal">
+							Recuérdame
+						</Label>
+					</div>
+
+					<Button className="w-full gap-2 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100">
+						Iniciar sesión
+					</Button>
+					{error && <p>{error}</p>}
+
+				</form>
+			</Card>
 		</div>
-	);
+	)
 }

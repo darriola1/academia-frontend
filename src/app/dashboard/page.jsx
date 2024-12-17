@@ -1,23 +1,15 @@
-// "use client"
-// import ButtonLogOut from '@/components/ui/ButtonLogOut';
-// import { useSession } from 'next-auth/react';
-import React from 'react';
-import HeaderDashboard from '@/components/HeaderDashboard';
-import NavBarDashboard from '@/components/NavBarDashboard';
-
+import Sidebar from "@/components/Sidebar";
+import DashboardHeader from "@/components/DashboardHeader";
+import DashboardContent from "@/components/DashboardContent";
 
 export default function Dashboard() {
-
-    // const { data: session } = useSession()
-    // console.log('session: ', session)
-
-
     return (
-        <div className="min-h-screen ">
-            <HeaderDashboard></HeaderDashboard>
-            <NavBarDashboard></NavBarDashboard>
+        <div className="min-h-screen bg-white dark:bg-zinc-900 text-white">
+            <Sidebar />
+            <div className="ml-64 p-8">
+                <DashboardHeader />
+                <DashboardContent />
+            </div>
         </div>
-    )
+    );
 }
-
-// export default Dashboard
