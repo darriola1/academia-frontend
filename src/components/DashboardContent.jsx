@@ -15,7 +15,7 @@ export default function DynamicContent() {
     };
 
     return (
-        <div className="bg-gray-800 p-6 rounded-lg">
+        <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-gray-200 dark:border-zinc-800 text-black dark:text-white">
             <p>{content[activeTab]}</p>
         </div>
     );

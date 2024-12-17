@@ -16,11 +16,11 @@ export default function Sidebar() {
     ];
 
     return (
-        <div className='fixed left-0 top-0 bottom-0 w-64 bg-gray-800 flex flex-col'>
+        <div className='fixed left-0 top-0 bottom-0 w-64 bg-white dark:bg-zinc-900 flex flex-col border-r border-gray-200 dark:border-zinc-800'>
             {/* Header */}
             <div className='flex items-center mb-8 p-4'>
-                <BookOpen className='h-8 w-8 text-blue-400 mr-2' />
-                <h1 className='text-xl font-bold'>Academia de Inglés</h1>
+                <BookOpen className='h-8 w-8 text-black dark:text-white mr-2' />
+                <h1 className='text-xl font-bold text-black dark:text-white'>Academia de Inglés</h1>
             </div>
 
             {/* Navigation Menu */}
@@ -30,7 +30,9 @@ export default function Sidebar() {
                         <li key={item.id}>
                             <Button
                                 variant='ghost'
-                                className={`w-full justify-start ${activeTab === item.id ? 'bg-blue-700' : 'hover:bg-gray-700'
+                                className={`w-full justify-start ${activeTab === item.id
+                                    ? 'bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white'
+                                    : 'text-gray-600 dark:text-gray-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                                     }`}
                                 onClick={() => setActiveTab(item.id)}
                             >
@@ -44,7 +46,7 @@ export default function Sidebar() {
 
             {/* Logout Button */}
             <div className='p-4'>
-                <ButtonLogOut variant='ghost' size='icon' />
+                <ButtonLogOut variant='ghost' size='icon' className="w-full justify-start text-gray-600 dark:text-gray-300 hover:bg-zinc-100 dark:hover:bg-zinc-800" />
             </div>
         </div>
     );
