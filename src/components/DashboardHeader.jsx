@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Moon, Sun } from 'lucide-react'
 import { useState, useEffect } from "react"
 
+
 const titles = {
 	overview: "Resumen",
 	students: "Estudiantes",
@@ -29,7 +30,6 @@ export default function DashboardHeader() {
 	return (
 		<header className="flex justify-between items-center mb-8 bg-white dark:bg-zinc-900 p-4 border-b border-gray-200 dark:border-zinc-800">
 			<h2 className="text-2xl font-bold text-black dark:text-white">{titles[activeTab]}</h2>
-
 			<Button
 				variant="ghost"
 				size="icon"
