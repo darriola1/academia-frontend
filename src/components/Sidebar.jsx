@@ -7,9 +7,11 @@ import ButtonLogOut from './ui/ButtonLogOut';
 
 export default function Sidebar() {
     const { activeTab, setActiveTab } = useContext(ActiveTabContext);
+    // Menu items - cargar dinamicamente despues segun rol
     const menuItems = [
         { name: 'Resumen', icon: BarChart, id: 'overview' },
         { name: 'Estudiantes', icon: Users, id: 'students' },
+        { name: 'Tutores', icon: Users, id: 'tutores' },
         { name: 'Clases', icon: Calendar, id: 'classes' },
         { name: 'Niveles', icon: BookPlus, id: 'levels' },
         { name: 'Configuración', icon: Settings, id: 'settings' },
