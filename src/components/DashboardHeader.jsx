@@ -1,22 +1,25 @@
 "use client";
 
-import { useContext } from "react";
-import { ActiveTabContext } from "@/app/Providers";
 import { Button } from "./ui/button";
 import { Moon, Sun } from 'lucide-react'
 import { useState, useEffect } from "react"
 
+const menuItems = [
+	{ name: 'Resumen', href: '/dashboard' },
+	{ name: 'Estudiantes', href: '/dashboard/students' },
+	{ name: 'Tutores', href: '/dashboard/tutors' },
+	{ name: 'Clases', href: '/dashboard/classes' },
+	{ name: 'Niveles', href: '/dashboard/levels' },
+	{ name: 'Configuración', href: '/dashboard/settings' },
+];
 
-const titles = {
-	overview: "Resumen",
-	students: "Estudiantes",
-	classes: "Clases",
-	settings: "Configuración",
-	levels: "Niveles"
-};
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ titulo }) {
 	const [isDarkMode, setIsDarkMode] = useState(false)
+
+	// Encuentra el nombre basado en el pathname actual
+	const currentItem = menuItems.find((item) => item.href === titulo);
+	const title = currentItem ? currentItem.name : "Dashboard";
 
 	useEffect(() => {
 		if (isDarkMode) {
@@ -25,11 +28,10 @@ export default function DashboardHeader() {
 			document.documentElement.classList.remove('dark')
 		}
 	}, [isDarkMode])
-	const { activeTab } = useContext(ActiveTabContext);
 
 	return (
 		<header className="flex justify-between items-center mb-8 bg-white dark:bg-zinc-900 p-4 border-b border-gray-200 dark:border-zinc-800">
-			<h2 className="text-2xl font-bold text-black dark:text-white">{titles[activeTab]}</h2>
+			<h2 className="text-2xl font-bold text-black dark:text-white">{title}</h2>
 			<Button
 				variant="ghost"
 				size="icon"
