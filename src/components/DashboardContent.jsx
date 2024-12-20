@@ -9,7 +9,7 @@ import Overview from "./Overview";
 import Classes from "./Classes";
 import Settings from "./Settings";
 // import { StudentsTable } from "../app/students/StudentTable";
-import { StudentsPage } from "@/app/students/StudentsPage";
+import StudentsPage from "@/app/dashboard/students/page";
 
 export default function DynamicContent() {
     const { activeTab } = useContext(ActiveTabContext);

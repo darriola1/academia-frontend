@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import Link from 'next/link';
 import {
     flexRender,
     getCoreRowModel,
@@ -134,13 +135,15 @@ const columns = [
         cell: ({ row }) => {
             return (
                 <div className="text-right">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
-                    >
-                        Ver Más
-                    </Button>
+                    <Link href={`/dashboard/students/${row.original.id_alumno}`}>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                        >
+                            Ver Más
+                        </Button>
+                    </Link>
                 </div>
             )
         },
