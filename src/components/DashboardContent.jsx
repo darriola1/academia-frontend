@@ -8,7 +8,8 @@ import Overview from "./Overview";
 // import StudentList from "./StudentList";
 import Classes from "./Classes";
 import Settings from "./Settings";
-import { StudentsTable } from "./StudentTable";
+// import { StudentsTable } from "../app/students/StudentTable";
+import { StudentsPage } from "@/app/students/StudentsPage";
 
 export default function DynamicContent() {
     const { activeTab } = useContext(ActiveTabContext);
@@ -16,7 +17,7 @@ export default function DynamicContent() {
     // Mapeo de tabs a componentes
     const componentsMap = {
         overview: <Overview />,
-        students: <StudentsTable />,
+        students: <StudentsPage />,
         classes: <Classes />,
         settings: <Settings />,
     };
