@@ -18,6 +18,7 @@ export default function DashboardHeader({ titulo }) {
 	const [isDarkMode, setIsDarkMode] = useState(false)
 
 	// Encuentra el nombre basado en el pathname actual
+	console.log(titulo)
 	const currentItem = menuItems.find((item) => item.href === titulo);
 	const title = currentItem ? currentItem.name : "Dashboard";
 

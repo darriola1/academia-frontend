@@ -223,12 +223,14 @@ export function StudentsTable() {
                     placeholder="Filtrar estudiantes..."
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
-                    className="max-w-sm bg-white dark:bg-zinc-800/50 border-0 ring-1 ring-zinc-200 dark:ring-zinc-700"
+                    className="max-w-sm bg-white text-black dark:text-white dark:bg-zinc-800/50 border-0 ring-1 ring-zinc-200 dark:ring-zinc-700"
                 />
-                <Button className="gap-2">
-                    <Plus className="h-4 w-4" />
-                    Nuevo Alumno
-                </Button>
+                <Link href={`/dashboard/students/new`}>
+                    <Button className="gap-2">
+                        <Plus className="h-4 w-4" />
+                        Nuevo Alumno
+                    </Button>
+                </Link>
             </div>
             <div className="rounded-lg overflow-hidden bg-white dark:bg-zinc-900 ring-1 ring-zinc-200 dark:ring-zinc-700">
                 <div className="overflow-x-auto">
@@ -297,7 +299,7 @@ export function StudentsTable() {
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
-                    className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    className="border-0 ring-1  text-black dark:text-white ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
                 >
                     Anterior
                 </Button>
@@ -306,7 +308,7 @@ export function StudentsTable() {
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
-                    className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    className="border-0 ring-1  text-black dark:text-white ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
                 >
                     Siguiente
                 </Button>
