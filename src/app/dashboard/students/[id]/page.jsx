@@ -265,7 +265,7 @@ export default function StudentPage() {
                 <StudentFinancialInfo student={student} />
             </div>
             <StudentTransactions
-                transactions={transactionsData}
+                transactions={transactions}
                 onViewAll={() => router.push(`/students/${params.id}/transactions`)}
             />
         </StudentLayout>
