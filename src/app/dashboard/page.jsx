@@ -1,19 +1,3 @@
-// import Sidebar from "@/components/Sidebar";
-import DashboardHeader from "@/components/DashboardHeader";
-// import DashboardContent from "@/components/DashboardContent";
-
-// export default function DashboardPage() {
-//     return (
-//         <div className="min-h-screen bg-white dark:bg-zinc-900 text-white">
-//             {/* <Sidebar /> */}
-//             <div className="ml-64 p-8">
-//                 {/* <DashboardHeader /> */}
-//                 <DashboardContent />
-//             </div>
-//         </div>
-//     );
-// }
-
 export default function DashboardPage() {
     return (
         <div className="space-y-4">
@@ -22,7 +6,7 @@ export default function DashboardPage() {
                 Aquí puedes acceder a las métricas clave y gestionar los datos de la academia.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  text-black dark:text-white">
                 {/* Ejemplo de métricas */}
                 <div className="p-4 bg-white dark:bg-zinc-800 rounded shadow">
                     <h2 className="text-lg font-semibold">Estudiantes Totales</h2>
