@@ -88,8 +88,9 @@ export default function StudentPage() {
                 <StudentFinancialInfo student={student} />
             </div>
             <StudentTransactions
+                // student={student}
                 transactions={transactions}
-                onViewAll={() => router.push(`/students/${params.id}/transactions`)}
+                onViewAll={() => router.push(`./${params.id}/transactions`)}
             />
         </StudentLayout>
     )
