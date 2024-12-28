@@ -18,42 +18,42 @@ import {
 } from "@/components/ui/table"
 import { MonthPicker } from "@/components/ui/month-picker"
 
-// Datos de ejemplo - esto vendría de tu API
-const transactionsData = [
-    {
-        id: 1,
-        fecha: "2024-01-15",
-        descripcion: "Pago mensualidad Enero",
-        monto: 5000,
-        tipo: "ingreso",
-        metodo: "Efectivo"
-    },
-    {
-        id: 2,
-        fecha: "2024-01-10",
-        descripcion: "Cargo por materiales",
-        monto: -1500,
-        tipo: "egreso",
-        metodo: "Transferencia"
-    },
-    {
-        id: 3,
-        fecha: "2024-12-10",
-        descripcion: "Cargo por materiales",
-        monto: -1500,
-        tipo: "egreso",
-        metodo: "Transferencia"
-    },
-    {
-        id: 4,
-        fecha: "2024-03-10",
-        descripcion: "Cargo por materiales",
-        monto: -1500,
-        tipo: "egreso",
-        metodo: "Transferencia"
-    },
-    // ... más transacciones para ejemplo
-]
+// // Datos de ejemplo - esto vendría de la API
+// const transactionsData = [
+//     {
+//         id: 1,
+//         fecha: "2024-01-15",
+//         descripcion: "Pago mensualidad Enero",
+//         monto: 5000,
+//         tipo: "ingreso",
+//         metodo: "Efectivo"
+//     },
+//     {
+//         id: 2,
+//         fecha: "2024-01-10",
+//         descripcion: "Cargo por materiales",
+//         monto: -1500,
+//         tipo: "egreso",
+//         metodo: "Transferencia"
+//     },
+//     {
+//         id: 3,
+//         fecha: "2024-12-10",
+//         descripcion: "Cargo por materiales",
+//         monto: -1500,
+//         tipo: "egreso",
+//         metodo: "Transferencia"
+//     },
+//     {
+//         id: 4,
+//         fecha: "2024-03-10",
+//         descripcion: "Cargo por materiales",
+//         monto: -1500,
+//         tipo: "egreso",
+//         metodo: "Transferencia"
+//     },
+//     // ... más transacciones para ejemplo
+// ]
 
 export default function StudentTransactionsPage() {
     const params = useParams()
@@ -90,8 +90,18 @@ export default function StudentTransactionsPage() {
                 setStudent(studentData)
 
                 // Fetch transactions data
-                // Aquí iría tu fetch real a la API de transacciones
-                // Por ahora usamos los datos de ejemplo
+                const StudentTransactions = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/alumnos/${params.id}/transacciones/mes?mes=${selectedMonth.month + 1}&anio=${selectedMonth.year}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${session.accessToken}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                if (!StudentTransactions.ok) throw new Error('Error al cargar las transacciones');
+                const transactionsData = await StudentTransactions.json();
                 setTransactions(transactionsData)
             } catch (err) {
                 setError(err.message)
@@ -103,7 +113,7 @@ export default function StudentTransactionsPage() {
         if (session?.accessToken) {
             fetchData()
         }
-    }, [session, params.id])
+    }, [session, params.id, selectedMonth.month, selectedMonth.year])
 
     const filteredTransactions = transactions.filter(transaction => {
         const transactionDate = new Date(transaction.fecha)
@@ -260,8 +270,9 @@ export default function StudentTransactionsPage() {
                                             </TableCell>
                                             <TableCell>{transaction.descripcion}</TableCell>
                                             <TableCell>{transaction.metodo}</TableCell>
-                                            <TableCell className={`text-right font-medium ${transaction.tipo === 'ingreso' ? 'text-green-500' : 'text-red-500'
+                                            <TableCell className={`text-right font-medium ${transaction.tipo_movimiento === 'ingreso' ? 'text-green-500' : 'text-red-500'
                                                 }`}>
+                                                {console.log(`id: ${transaction.id} tipo movimiento:${transaction.tipo_movimiento}`)}
                                                 {new Intl.NumberFormat("es-UY", {
                                                     style: "currency",
                                                     currency: "UYU",

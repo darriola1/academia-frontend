@@ -23,7 +23,7 @@ export function StudentTransactions({ transactions, onViewAll }) {
                     onClick={onViewAll}
                     className="gap-2"
                 >
-                    Ver todos
+                    Ver más
                     <Clock className="h-4 w-4" />
                 </Button>
             </CardHeader>
@@ -44,7 +44,7 @@ export function StudentTransactions({ transactions, onViewAll }) {
                                     {new Date(transaction.fecha).toLocaleDateString('es-UY')}
                                 </TableCell>
                                 <TableCell>{transaction.descripcion}</TableCell>
-                                <TableCell className={`text-right font-medium ${transaction.tipo_movimiento === 'pago' ? 'text-green-500' : 'text-red-500'
+                                <TableCell className={`text-right font-medium ${transaction.tipo_movimiento === 'ingreso' ? 'text-green-500' : 'text-red-500'
                                     }`}>
                                     {new Intl.NumberFormat("es-UY", {
                                         style: "currency",
