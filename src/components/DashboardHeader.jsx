@@ -2,7 +2,7 @@
 
 import { Button } from "./ui/button";
 import { Moon, Sun } from 'lucide-react'
-import { useState, useEffect } from "react"
+import { useTheme } from '@/context/themeContext';
 
 const menuItems = [
 	{ name: 'Resumen', href: '/dashboard' },
@@ -15,20 +15,12 @@ const menuItems = [
 
 
 export default function DashboardHeader({ titulo }) {
-	const [isDarkMode, setIsDarkMode] = useState(false)
+	const { theme, toggleTheme } = useTheme();
 
 	// Encuentra el nombre basado en el pathname actual
 	console.log(titulo)
 	const currentItem = menuItems.find((item) => item.href === titulo);
 	const title = currentItem ? currentItem.name : "Dashboard";
-
-	useEffect(() => {
-		if (isDarkMode) {
-			document.documentElement.classList.add('dark')
-		} else {
-			document.documentElement.classList.remove('dark')
-		}
-	}, [isDarkMode])
 
 	return (
 		<header className="flex justify-between items-center mb-8 bg-white dark:bg-zinc-900 p-4 border-b border-gray-200 dark:border-zinc-800">
@@ -36,10 +28,10 @@ export default function DashboardHeader({ titulo }) {
 			<Button
 				variant="ghost"
 				size="icon"
-				onClick={() => setIsDarkMode(!isDarkMode)}
+				onClick={toggleTheme}
 				className="h-8 w-8 text-black dark:text-white"
 			>
-				{isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+				{theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
 			</Button>
 		</header>
 	);

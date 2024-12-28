@@ -1,5 +1,5 @@
 "use client"
-
+import { useTheme } from '@/context/themeContext';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -9,16 +9,9 @@ import { Label } from "@/components/ui/label"
 import { BookOpen, Moon, Sun } from 'lucide-react'
 import { signIn } from 'next-auth/react';
 
-export default function LoginPage() {
-	const [isDarkMode, setIsDarkMode] = useState(false)
 
-	useEffect(() => {
-		if (isDarkMode) {
-			document.documentElement.classList.add('dark')
-		} else {
-			document.documentElement.classList.remove('dark')
-		}
-	}, [isDarkMode])
+export default function LoginPage() {
+	const { theme, toggleTheme } = useTheme();
 
 	const [error, setError] = useState();
 	const router = useRouter();
@@ -58,10 +51,10 @@ export default function LoginPage() {
 					<Button
 						variant="ghost"
 						size="icon"
-						onClick={() => setIsDarkMode(!isDarkMode)}
+						onClick={toggleTheme}
 						className="h-8 w-8"
 					>
-						{isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+						{theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
 					</Button>
 				</div>
 
