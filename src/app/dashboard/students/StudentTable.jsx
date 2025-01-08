@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import Link from 'next/link';
 import {
     flexRender,
     getCoreRowModel,
@@ -9,7 +10,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, Loader2 } from 'lucide-react'
+import { ArrowUpDown, Loader2, Plus } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -113,8 +114,8 @@ const columns = [
             )
         },
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("balance_final"))
-            console.log('amount: ', amount)
+            const amount = parseFloat(row.getValue("balance_final") ? row.getValue("balance_final") : 0);
+            // console.log('amount: ', amount)
             const formatted = new Intl.NumberFormat("es-UY", {
                 style: "currency",
                 currency: "UYU",
@@ -129,6 +130,24 @@ const columns = [
             return <div className="text-left">{row.getValue("email")}</div>
         },
     },
+    {
+        id: "actions",
+        cell: ({ row }) => {
+            return (
+                <div className="text-right">
+                    <Link href={`/dashboard/students/${row.original.id_alumno}`}>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                        >
+                            Ver Más
+                        </Button>
+                    </Link>
+                </div>
+            )
+        },
+    },
 ]
 
 export function StudentsTable() {
@@ -141,32 +160,32 @@ export function StudentsTable() {
     const { data: session } = useSession();
 
     useEffect(() => {
-        fetchStudents()
-    }, [])
-
-    const fetchStudents = async () => {
-        try {
-            setLoading(true)
-            // const response = await fetch('${process.env.API_BASE_URL}/api/alumnos')
-            console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL)
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/alumnos`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${session.accessToken}`,
-                    "Content-Type": "application/json",
-                },
-                redirect: "follow",
-            });
-            console.log('response: ', response)
-            if (!response.ok) throw new Error('Error al cargar los estudiantes')
-            const data = await response.json()
-            setData(data)
-        } catch (err) {
-            setError(err.message)
-        } finally {
-            setLoading(false)
+        const fetchStudents = async () => {
+            try {
+                setLoading(true)
+                // const response = await fetch('${process.env.API_BASE_URL}/api/alumnos')
+                // console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/alumnos`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${session.accessToken}`,
+                        "Content-Type": "application/json",
+                    },
+                    redirect: "follow",
+                });
+                // console.log('response: ', response)
+                if (!response.ok) throw new Error('Error al cargar los estudiantes')
+                const data = await response.json()
+                setData(data)
+            } catch (err) {
+                setError(err.message)
+            } finally {
+                setLoading(false)
+            }
         }
-    }
+
+        fetchStudents()
+    }, [session])
 
     const table = useReactTable({
         data,
@@ -199,13 +218,19 @@ export function StudentsTable() {
 
     return (
         <div className="w-full space-y-4">
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
                 <Input
                     placeholder="Filtrar estudiantes..."
                     value={globalFilter}
                     onChange={(e) => setGlobalFilter(e.target.value)}
-                    className="max-w-sm bg-white dark:bg-zinc-800/50 border-0 ring-1 ring-zinc-200 dark:ring-zinc-700"
+                    className="max-w-sm bg-white text-black dark:text-white dark:bg-zinc-800/50 border-0 ring-1 ring-zinc-200 dark:ring-zinc-700"
                 />
+                <Link href={`/dashboard/students/new`}>
+                    <Button className="gap-2">
+                        <Plus className="h-4 w-4" />
+                        Nuevo Alumno
+                    </Button>
+                </Link>
             </div>
             <div className="rounded-lg overflow-hidden bg-white dark:bg-zinc-900 ring-1 ring-zinc-200 dark:ring-zinc-700">
                 <div className="overflow-x-auto">
@@ -245,7 +270,7 @@ export function StudentsTable() {
                                         className="border-b border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
                                     >
                                         {row.getVisibleCells().map((cell) => (
-                                            <TableCell key={cell.id} className="py-3">
+                                            <TableCell key={cell.id} className="py-3 text-black dark:text-white">
                                                 {flexRender(
                                                     cell.column.columnDef.cell,
                                                     cell.getContext()
@@ -274,7 +299,7 @@ export function StudentsTable() {
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
-                    className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    className="border-0 ring-1  text-black dark:text-white ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
                 >
                     Anterior
                 </Button>
@@ -283,7 +308,7 @@ export function StudentsTable() {
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
-                    className="border-0 ring-1 ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                    className="border-0 ring-1  text-black dark:text-white ring-zinc-200 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800"
                 >
                     Siguiente
                 </Button>
