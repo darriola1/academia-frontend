@@ -44,6 +44,7 @@ export function StudentTransactions({ transactions, onViewAll }) {
                                     {new Date(transaction.fecha).toLocaleDateString('es-UY')}
                                 </TableCell>
                                 <TableCell>{transaction.descripcion}</TableCell>
+                                {/* <TableCell>Tipo</TableCell> */}
                                 <TableCell className={`text-right font-medium ${transaction.tipo_movimiento === 'ingreso' ? 'text-green-500' : 'text-red-500'
                                     }`}>
                                     {new Intl.NumberFormat("es-UY", {
