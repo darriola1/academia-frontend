@@ -30,6 +30,7 @@ const provider = NextAuth({
         signIn: '/', // Personaliza la página de inicio de sesión
     },
     callbacks: {
+
         async jwt({ token, user }) {
             if (user) {
                 // Este callback se activa cada vez que se genera o actualiza un token JWT.
