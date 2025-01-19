@@ -9,17 +9,19 @@ const provider = NextAuth({
                 email: { label: 'Email', type: 'text' },
                 password: { label: 'Password', type: 'password' },
             },
+
             async authorize(credentials) {
                 const res = await fetch(`${process.env.API_BASE_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(credentials),
                 });
-
                 const data = await res.json();
+                console.log('Response from backend:', data);
                 if (res.ok && data.token) {
                     return { token: data.token, user: data.user };
                 }
+                console.log('Login failed with:', res.status, data);
                 return null;
             },
         }),
