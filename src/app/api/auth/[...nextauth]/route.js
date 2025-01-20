@@ -52,6 +52,7 @@ const provider = NextAuth({
             return session;
         },
     },
+    csrf: false, // Deshabilitar temporalmente
     debug: true, // Habilitar logs de depuración
     secret: process.env.NEXTAUTH_SECRET,
 });
