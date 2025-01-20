@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { BookOpen, Moon, Sun } from 'lucide-react'
-import { signIn } from 'next-auth/react';
+import { signIn, getCsrfToken } from 'next-auth/react';
 
 
 export default function LoginPage() {
@@ -27,10 +27,12 @@ export default function LoginPage() {
 			return;
 		}
 		// Llama a signIn de NextAuth para autenticación
+		const csrfToken = await getCsrfToken();
 		const result = await signIn('credentials', {
 			redirect: false,
 			email,
 			password,
+			csrfToken, // se envia csrf token al backend para env de vercel
 		});
 
 		if (result && result.ok) {
